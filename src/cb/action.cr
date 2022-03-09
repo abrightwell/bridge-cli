@@ -45,4 +45,22 @@ module CB
       client.get_teams.find { |t| t.id == c.team_id }.try &.name.colorize.t_alt
     end
   end
+
+  abstract class ClusterAction < Action
+    property cluster_id : String?
+
+    def cluster_id=(str : String)
+      raise_arg_error "cluster id", str unless str =~ EID_PATTERN
+      @cluster_id = str
+    end
+  end
+
+  abstract class TeamAction < Action
+    property team_id : String?
+
+    def team_id=(str : String)
+      raise_arg_error "team id", str unless str =~ EID_PATTERN
+      @team_id = str
+    end
+  end
 end
